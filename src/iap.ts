@@ -236,6 +236,7 @@ export const getSubscriptions = ({
 }: {
   skus: string[];
 }): Promise<Subscription[]> => {
+  console.warn(`--- getSubscriptions ${skus}`);
   if (!skus?.length) {
     return Promise.reject('"skus" is required');
   }
@@ -259,12 +260,12 @@ export const getSubscriptions = ({
       },
       android: async (): Promise<Subscription[]> => {
         const androidPlatform = getAndroidModuleType();
-
+        console.warn(`--- androidPlatform ${JSON.stringify(androidPlatform)}`);
         let subscriptions = (await getAndroidModule().getItemsByType(
           ANDROID_ITEM_TYPE_SUBSCRIPTION,
           skus,
         )) as SubscriptionAndroid[] | SubscriptionAmazon[];
-
+        console.warn(`--- getItemsByType(${ANDROID_ITEM_TYPE_SUBSCRIPTION}, ${skus}):  ${JSON.stringify(subscriptions)}`);
         switch (androidPlatform) {
           case 'android': {
             const castSubscriptions = subscriptions as SubscriptionAndroid[];

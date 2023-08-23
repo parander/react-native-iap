@@ -21,8 +21,10 @@ export const setAndroidNativeModule = (
 
 export const checkNativeAndroidAvailable = (): void => {
   if (!RNIapModule && !RNIapAmazonModule) {
+    console.warn(`checkNativeAndroidAvailable throw`);
     throw new Error(ErrorCode.E_IAP_NOT_AVAILABLE);
   }
+  console.warn(`checkNativeAndroidAvailable OK`);
 };
 
 /**
